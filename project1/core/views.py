@@ -1,5 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from core.forms import JoinForm, LoginForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -28,10 +33,10 @@ def user_login(request):
             else:
                 print("Someone tried to login and failed.")
                 print("They used username: {} and password: {}".format(username,password))
-                return render(request, 'app1/login.html', {"login_form": LoginForm})
+                return render(request, 'core/login.html', {"login_form": LoginForm})
     else:
         #Nothing has been provided for username or password.
-        return render(request, 'app1/login.html', {"login_form": LoginForm})
+        return render(request, 'core/login.html', {"login_form": LoginForm})
 
 #@login_required(login_url='/login/')
 def user_logout(request):
@@ -55,8 +60,8 @@ def join(request):
         else:
             # Form invalid, print errors to console
             page_data = { "join_form": join_form }
-            return render(request, 'app1/join.html', page_data)
+            return render(request, 'core/join.html', page_data)
     else:
         join_form = JoinForm()
         page_data = { "join_form": join_form }
-        return render(request, 'app1/join.html', page_data)
+        return render(request, 'core/join.html', page_data)

@@ -26,5 +26,7 @@ urlpatterns = [
     path('login/', core_views.user_login),
     path('logout/', core_views.user_logout),
     path('TasksMain/', tasks_views.TasksMain),
-    path('BudgetMain/', budget_views.BudgetMain)
+    path('BudgetMain/', budget_views.BudgetMain),
+    path('tasks/add/', tasks_views.add),
+    path('tasks/edit/<int:id>/', tasks_views.edit),
 ]
