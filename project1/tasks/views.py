@@ -20,8 +20,8 @@ def add(request):
 				Description = add_form.cleaned_data["Description"]
 				Category = add_form.cleaned_data["Category"]
 				Completed = add_form.cleaned_data["Completed"]
-				JournalEntry(Description=Description, Category=Category, Completed=Completed).save()
-				return redirect("TasksMain")
+				JournalEntry(user=request.user, Description=Description, Category=Category, Completed=Completed).save()
+				return redirect("/TasksMain/")
 			else:
 				context = {
                     "form_data": add_form
@@ -29,7 +29,7 @@ def add(request):
 				return render(request, 'tasks/add.html', context)
 		else:
 			# Cancel
-			return redirect("TasksMain")
+			return redirect("TasksMain/")
 	else:
 		context = {
             "form_data": JournalEntryForm()
@@ -54,7 +54,7 @@ def edit(request, id):
 				journalEntry.user = request.user
 				journalEntry.id = id
 				journalEntry.save()
-				return redirect("TasksMain")
+				return redirect("TasksMain/")
 			else:
 				context = {
                     "form_data": form
