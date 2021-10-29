@@ -10,6 +10,9 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request, 'core/home.html')
 
+def about(request):
+    return render(request, 'core/about.html')
+
 def user_login(request):
     if (request.method == 'POST'):
         login_form = LoginForm(request.POST)

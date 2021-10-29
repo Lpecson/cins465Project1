@@ -8,10 +8,18 @@ from django.shortcuts import render
 
 @login_required(login_url='/core/login/')
 def TasksMain(request):
-    return render(request, 'tasks/home.html')
+	if (request.method == "GET" and "delete" in request.GET):
+		id = request.GET["delete"]
+		JournalEntry.objects.filter(id=id).delete()
+		return redirect("/TasksMain/")
+	else:
+		table_data = JournalEntry.objects.filter(user=request.user)
+		context = {
+            "table_data": table_data
+		}
+		return render(request, 'tasks/home.html', context)
 
-
-@login_required(login_url='/core/login/')
+@login_required(login_url='/login/')
 def add(request):
 	if (request.method == "POST"):
 		if ("add" in request.POST):
@@ -20,8 +28,9 @@ def add(request):
 				Description = add_form.cleaned_data["Description"]
 				Category = add_form.cleaned_data["Category"]
 				Completed = add_form.cleaned_data["Completed"]
-				JournalEntry(user=request.user, Description=Description, Category=Category, Completed=Completed).save()
-				return redirect("/TasksMain/")
+				user = User.objects.get(id=request.user.id)
+				JournalEntry(user=user, Description=Description, Category=Category, Completed = Completed).save()
+				return redirect('/TasksMain/')
 			else:
 				context = {
                     "form_data": add_form
@@ -29,13 +38,12 @@ def add(request):
 				return render(request, 'tasks/add.html', context)
 		else:
 			# Cancel
-			return redirect("TasksMain/")
+			return redirect("/TasksMain/")
 	else:
 		context = {
             "form_data": JournalEntryForm()
 		}
 		return render(request, 'tasks/add.html', context)
-
 
 @login_required(login_url='/core/login/')
 def edit(request, id):

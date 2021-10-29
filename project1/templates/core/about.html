@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <h1>CINS 465: Project 1 by Lukas Pecson</h1>
+    {% load static %}
+    {% include  "app1/bootstrap.html" %}
+  </head>
+  <body>
+      {% include "app1/navigation.html" %}
+      <div class="container">
+      <h2>About Page</h2>
+      <div class="jumbotron, margin">
+        <h2>Lukas Pecson</h2>
+        <a href="https://www.linkedin.com/in/lukas-pecson-018666216/" target="_blank"><h5>Linkedin Profile</h5></a>
+        <div class="jumbotron, margin">
+        <h5>Hello! My name is Lukas and I grew up in Alameda CA, right near oakland. I moved to chico when I graduated highschool and am now studying computer science at CSU Chico. I enjoy dancing, video games, and cute animals. I made this site using Django so I could have a nice multi-page website</h5>
+      </div>
+        <div class="row">
+          <div class="col-4">
+            <img src="{% static 'lukas.jpg'%}" class=img-fluid width="500px" height="400px"/>
+          </div>
+          <div class="col-4">
+            <img src="{%static 'lukas2.jpg'%}" class=img-fluid width="500px" height="400px"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    </body>
+</html>

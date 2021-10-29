@@ -29,4 +29,5 @@ urlpatterns = [
     path('BudgetMain/', budget_views.BudgetMain),
     path('tasks/add/', tasks_views.add),
     path('tasks/edit/<int:id>/', tasks_views.edit),
+    path('about/', core_views.about),
 ]
